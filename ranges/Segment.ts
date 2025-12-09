@@ -6,5 +6,5 @@ export type Segment = {
 }
 
 export function center(segment: Segment) : number {
-    return segment.left + ((segment.right - segment.left) >> 1) + (segment.right - segment.left) & 1;
+    return segment.left + ((segment.right - segment.left) >> 1) + ((segment.right - segment.left) & 1);
 }
