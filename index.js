@@ -3,7 +3,7 @@
 import {SegmentTree} from "./ranges/segmenttree.js";
 import Matter from "matter-js";
 
-export const Rails = {
+export default Rails = {
     name: "rails",
     version: "1.0.0",
     for: "matter-js@0.20.0",

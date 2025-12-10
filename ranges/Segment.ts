@@ -6,6 +6,7 @@ export type Segment = {
     parent: number;
     left_child?: Segment["parent"];
     right_child?: Segment["parent"];
+    waiting_changes: Segment["mass"];
 }
 
 export function center(segment: Segment) : number {

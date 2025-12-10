@@ -21,16 +21,16 @@ export class SegmentTree {
         this.transverse_axis = transverse_axis;
         element_count = Math.abs(Math.round(element_count));
         let default_density = container.density;
-        __classPrivateFieldSet(this, _SegmentTree_raw, [{ mass: default_density * element_count, left: 0, right: element_count, parent: -1 }], "f");
+        __classPrivateFieldSet(this, _SegmentTree_raw, [{ mass: default_density * element_count, left: 0, right: element_count, parent: -1, waiting_changes: 0 }], "f");
         let index = 0;
         while (index < __classPrivateFieldGet(this, _SegmentTree_raw, "f").length) {
             console.log(index, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right);
             if (!isLeaf(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index])) {
                 let middle = center(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index]);
                 __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left_child = __classPrivateFieldGet(this, _SegmentTree_raw, "f").length;
-                __classPrivateFieldGet(this, _SegmentTree_raw, "f").push({ mass: default_density * (middle - __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left), left: __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, right: middle, parent: index });
+                __classPrivateFieldGet(this, _SegmentTree_raw, "f").push({ mass: default_density * (middle - __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left), left: __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, right: middle, parent: index, waiting_changes: 0 });
                 __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right_child = __classPrivateFieldGet(this, _SegmentTree_raw, "f").length;
-                __classPrivateFieldGet(this, _SegmentTree_raw, "f").push({ mass: default_density * (__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right - middle), left: middle, right: __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right, parent: index });
+                __classPrivateFieldGet(this, _SegmentTree_raw, "f").push({ mass: default_density * (__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right - middle), left: middle, right: __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right, parent: index, waiting_changes: 0 });
             }
             index++;
         }
@@ -52,7 +52,6 @@ export class SegmentTree {
         if (target > 0 && __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].mass > target) {
             center += (1.0 * target) / __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].mass;
         }
-        console.log(target, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, center, "!");
         let result = Matter.Vector.mult(this.slide_axis, center / this.element_count);
         return Matter.Vector.add(result, this.transverse_axis);
     }
