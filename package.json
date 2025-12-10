@@ -1,0 +1,38 @@
+{
+  "name": "rails-physics",
+  "version": "1.0.6",
+  "description": "A plugin for the matter-js physics library designed to efficiently simulate objects moving in a one-dimensional space whose projection onto the 2-dimensional space of the screen changes over time",
+  "keywords": [
+    "typescript",
+    "physics",
+    "physics-simulation"
+  ],
+  "dependencies": {
+    "matter-js": "^0.20.0"
+  },
+  "homepage": "https://github.com/script-mouse/rails#readme",
+  "bugs": {
+    "url": "https://github.com/script-mouse/rails/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/script-mouse/rails.git"
+  },
+  "license": "Apache-2.0",
+  "author": "script-mouse",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "ranges/segment.js",
+    "ranges/segmenttree.js"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node tests/SegmentTreeTest.js & node index.js"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.20.2"
+  }
+}

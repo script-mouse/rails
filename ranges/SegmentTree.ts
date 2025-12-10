@@ -1,21 +1,58 @@
-import type { Segment } from "./Segment.ts"
-import { center } from "./Segment.ts"
+import type { Segment } from "./segment.js"
+import { center, leftChild, rightChild, isLeaf} from "./segment.js"
+import Matter from "matter-js";
 //Implement a segment tree for O(log(n)) updates and O(log(n)) location of center of mass
 export class SegmentTree {
     #raw: Segment[];
-    readonly external_width: number;
-    constructor(element_count: number, default_density: number = 0, external_width: number) {
-        this.external_width = external_width;
+    //Stores the number of unit sized segments used to simulate the object. NOT equal to #raw.length
+    readonly element_count: number;
+    //The "forward" axis along which the block or other massive object slides
+    slide_axis: Matter.Vector;
+
+    transverse_axis: Matter.Vector;
+
+    constructor(container: Matter.Body, element_count: number, transverse_axis: Matter.Vector, slide_axis: Matter.Vector) {
+        this.element_count = element_count;
+        this.slide_axis = slide_axis;
+        this.transverse_axis  = transverse_axis;
         element_count = Math.abs(Math.round(element_count));
-        this.#raw = [{ mass: default_density * element_count,  left: 0, right: element_count}];
-        let faux_index = 1;
-        while(faux_index <= this.#raw.length) {
-            if((this.#raw[faux_index - 1].left + 1) !== this.#raw[faux_index - 1].right) {
-                let middle = center(this.#raw[faux_index - 1]);
-                this.#raw.push({mass: default_density * (middle - this.#raw[faux_index - 1].left), left: this.#raw[faux_index - 1].left, right: middle});
-                this.#raw.push({mass: default_density * (this.#raw[faux_index - 1].right - middle), left: middle, right: this.#raw[faux_index - 1].right});
+        let default_density = container.density;
+        this.#raw = [{ mass: default_density * element_count,  left: 0, right: element_count, parent: -1}];
+        let index = 0;
+        while(index < this.#raw.length) {
+            console.log(index, this.#raw[index].left, this.#raw[index].right);
+            if(!isLeaf(this.#raw[index])) {
+                let middle = center(this.#raw[index]);
+                this.#raw[index].left_child = this.#raw.length;
+                this.#raw.push({mass: default_density * (middle - this.#raw[index].left), left: this.#raw[index].left, right: middle, parent: index});                
+                this.#raw[index].right_child = this.#raw.length;
+                this.#raw.push({mass: default_density * (this.#raw[index].right - middle), left: middle, right: this.#raw[index].right, parent: index});
+
             }
-            faux_index++;
+            index++;
         }
     }
+
+    centerOfMass(): Matter.Vector {
+        let target = this.#raw[0].mass / 2;
+        let index = 0;
+        while(!isLeaf(this.#raw[index])) {
+            console.log(target, index, leftChild(this.#raw[index]), this.#raw[index].mass);
+            if(this.#raw[leftChild(this.#raw[index])].mass > target) {
+                index = leftChild(this.#raw[index]);
+            } else {
+                target -= this.#raw[leftChild(this.#raw[index])].mass;
+                index = rightChild(this.#raw[index]);
+            }
+        }
+        let center = this.#raw[index].left;
+        if(target > 0 && this.#raw[index].mass > target) {
+            center += (1.0 * target) / this.#raw[index].mass;
+        }
+        console.log(target, this.#raw[index].left, center, "!");
+        let result = Matter.Vector.mult(this.slide_axis, center / this.element_count);
+        return Matter.Vector.add(result, this.transverse_axis);
+    }
+
+
 };
