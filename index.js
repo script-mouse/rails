@@ -13,13 +13,14 @@ export const Rails = {
             Rails.Body.createRail(this);
         });
 
-        base.before("Body.update", function() {
-            Rails.Body.alignRailBody(this);
+        base.before("Body.update", function(body) {
+            Rails.Body.alignRailBody(body);
         });
     },
 
     Body: {
         createRail: function(body) {
+            console.log(body);
             if(body.plugin.rails_granularity !== undefined) {
                 let transverse_axis = Matter.Vector.create(1, 0);
                 let slide_axis = Matter.Vector.create(0, 1);
@@ -29,7 +30,7 @@ export const Rails = {
                 if(body.plugin.slide_axis !== undefined) {
                     slide_axis = body.plugin.slide_axis;
                 }
-                body.plugin.centre_finder = new SegmentTree(this, this.rails_granularity, transverse_axis, slide_axis);
+                body.plugin.centre_finder = new SegmentTree(body, body.plugin.rails_granularity, transverse_axis, slide_axis);
                 body.plugin.old_centre = Matter.Vector.rotate(body.plugin.centre_finder.centreOfMass(), body.angle);
             }
         },

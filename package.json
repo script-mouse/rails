@@ -1,6 +1,6 @@
 {
   "name": "rails-physics",
-  "version": "1.0.10",
+  "version": "1.2.3",
   "description": "A plugin for the matter-js physics library designed to efficiently simulate objects moving in a one-dimensional space whose projection onto the 2-dimensional space of the screen changes over time",
   "keywords": [
     "typescript",
@@ -24,7 +24,8 @@
   "main": "index.js",
   "files": [
     "ranges/segment.js",
-    "ranges/segmenttree.js"
+    "ranges/segmenttree.js",
+    "rails-physics.d.ts"
   ],
   "directories": {
     "test": "tests"
@@ -34,5 +35,6 @@
   },
   "devDependencies": {
     "@types/matter-js": "^0.20.2"
-  }
+  },
+  "types": "./rails-physics.d.ts"
 }

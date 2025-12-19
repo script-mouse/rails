@@ -24,7 +24,9 @@ export class SegmentTree {
         __classPrivateFieldSet(this, _SegmentTree_raw, [{ mass: default_density * element_count, left: 0, right: element_count, parent: -1, waiting_changes: 0 }], "f");
         let index = 0;
         while (index < __classPrivateFieldGet(this, _SegmentTree_raw, "f").length) {
-            console.log(index, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right);
+            if (index < 20) {
+                console.log(index, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].mass, default_density);
+            }
             if (!isLeaf(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index])) {
                 let middle = centre(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index]);
                 __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left_child = __classPrivateFieldGet(this, _SegmentTree_raw, "f").length;
@@ -35,7 +37,6 @@ export class SegmentTree {
             index++;
         }
     }
-    //test change
     centreOfMass() {
         let target = __classPrivateFieldGet(this, _SegmentTree_raw, "f")[0].mass / 2;
         let index = 0;

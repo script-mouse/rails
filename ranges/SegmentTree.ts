@@ -20,7 +20,6 @@ export class SegmentTree {
         this.#raw = [{ mass: default_density * element_count,  left: 0, right: element_count, parent: -1, waiting_changes: 0}];
         let index = 0;
         while(index < this.#raw.length) {
-            console.log(index, this.#raw[index].left, this.#raw[index].right);
             if(!isLeaf(this.#raw[index])) {
                 let middle = centre(this.#raw[index]);
                 this.#raw[index].left_child = this.#raw.length;
@@ -37,7 +36,6 @@ export class SegmentTree {
         let target = this.#raw[0].mass / 2;
         let index = 0;
         while(!isLeaf(this.#raw[index])) {
-            console.log(target, index, leftChild(this.#raw[index]), this.#raw[index].mass);
             if(this.#raw[leftChild(this.#raw[index])].mass > target) {
                 index = leftChild(this.#raw[index]);
             } else {
