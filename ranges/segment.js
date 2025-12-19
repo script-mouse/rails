@@ -1,4 +1,4 @@
-export function center(segment) {
+export function centre(segment) {
     return segment.left + ((segment.right - segment.left) >> 1); // + ((segment.right - segment.left) & 1);
 }
 //Get the index of the left child of the segment passed as an argument

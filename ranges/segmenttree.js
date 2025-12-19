@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _SegmentTree_raw;
-import { center, leftChild, rightChild, isLeaf } from "./segment.js";
+import { centre, leftChild, rightChild, isLeaf } from "./segment.js";
 import Matter from "matter-js";
 //Implement a segment tree for O(log(n)) updates and O(log(n)) location of center of mass
 export class SegmentTree {
@@ -26,7 +26,7 @@ export class SegmentTree {
         while (index < __classPrivateFieldGet(this, _SegmentTree_raw, "f").length) {
             console.log(index, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right);
             if (!isLeaf(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index])) {
-                let middle = center(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index]);
+                let middle = centre(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index]);
                 __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left_child = __classPrivateFieldGet(this, _SegmentTree_raw, "f").length;
                 __classPrivateFieldGet(this, _SegmentTree_raw, "f").push({ mass: default_density * (middle - __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left), left: __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].left, right: middle, parent: index, waiting_changes: 0 });
                 __classPrivateFieldGet(this, _SegmentTree_raw, "f")[index].right_child = __classPrivateFieldGet(this, _SegmentTree_raw, "f").length;
@@ -35,7 +35,7 @@ export class SegmentTree {
             index++;
         }
     }
-    centerOfMass() {
+    centreOfMass() {
         let target = __classPrivateFieldGet(this, _SegmentTree_raw, "f")[0].mass / 2;
         let index = 0;
         while (!isLeaf(__classPrivateFieldGet(this, _SegmentTree_raw, "f")[index])) {

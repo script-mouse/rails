@@ -3,7 +3,7 @@
 import {SegmentTree} from "./ranges/segmenttree.js";
 import Matter from "matter-js";
 
-export default Rails = {
+export const Rails = {
     name: "rails",
     version: "1.0.0",
     for: "matter-js@0.20.0",
@@ -30,7 +30,7 @@ export default Rails = {
                     slide_axis = body.plugin.slide_axis;
                 }
                 body.plugin.centre_finder = new SegmentTree(this, this.rails_granularity, transverse_axis, slide_axis);
-                body.plugin.old_center = Matter.Vector.rotate(body.plugin.centre_finder.centerOfMass(), body.angle);
+                body.plugin.old_centre = Matter.Vector.rotate(body.plugin.centre_finder.centreOfMass(), body.angle);
             }
         },
 
@@ -45,4 +45,5 @@ export default Rails = {
 
 };
 
+export default Rails;
 Matter.Plugin.register(Rails);

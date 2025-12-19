@@ -9,7 +9,7 @@ export type Segment = {
     waiting_changes: Segment["mass"];
 }
 
-export function center(segment: Segment) : number {
+export function centre(segment: Segment) : number {
     return segment.left + ((segment.right - segment.left) >> 1);// + ((segment.right - segment.left) & 1);
 }
 

@@ -1,5 +1,5 @@
 import type { Segment } from "./segment.js"
-import { center, leftChild, rightChild, isLeaf} from "./segment.js"
+import { centre, leftChild, rightChild, isLeaf} from "./segment.js"
 import Matter from "matter-js";
 //Implement a segment tree for O(log(n)) updates and O(log(n)) location of center of mass
 export class SegmentTree {
@@ -22,7 +22,7 @@ export class SegmentTree {
         while(index < this.#raw.length) {
             console.log(index, this.#raw[index].left, this.#raw[index].right);
             if(!isLeaf(this.#raw[index])) {
-                let middle = center(this.#raw[index]);
+                let middle = centre(this.#raw[index]);
                 this.#raw[index].left_child = this.#raw.length;
                 this.#raw.push({mass: default_density * (middle - this.#raw[index].left), left: this.#raw[index].left, right: middle, parent: index, waiting_changes: 0});                
                 this.#raw[index].right_child = this.#raw.length;
@@ -33,7 +33,7 @@ export class SegmentTree {
         }
     }
 
-    centerOfMass(): Matter.Vector {
+    centreOfMass(): Matter.Vector {
         let target = this.#raw[0].mass / 2;
         let index = 0;
         while(!isLeaf(this.#raw[index])) {
