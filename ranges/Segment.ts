@@ -8,7 +8,7 @@ export type Segment = {
     right_child?: Segment["parent"];
     waiting_changes: Segment["mass"];
 }
-
+//test change
 export function centre(segment: Segment) : number {
     return segment.left + ((segment.right - segment.left) >> 1);// + ((segment.right - segment.left) & 1);
 }

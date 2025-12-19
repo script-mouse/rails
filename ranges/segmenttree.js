@@ -35,6 +35,7 @@ export class SegmentTree {
             index++;
         }
     }
+    //test change
     centreOfMass() {
         let target = __classPrivateFieldGet(this, _SegmentTree_raw, "f")[0].mass / 2;
         let index = 0;
