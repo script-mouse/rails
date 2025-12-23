@@ -14,7 +14,7 @@ export class SegmentTree {
     constructor(container: Matter.Body, element_count: number, transverse_axis: Matter.Vector, slide_axis: Matter.Vector) {
         this.element_count = element_count;
         this.slide_axis = slide_axis;
-        this.transverse_axis  = transverse_axis;
+        this.transverse_axis = transverse_axis;
         element_count = Math.abs(Math.round(element_count));
         let default_density = container.density;
         this.#raw = [{ mass: default_density * element_count,  left: 0, right: element_count, parent: -1, waiting_changes: 0}];
